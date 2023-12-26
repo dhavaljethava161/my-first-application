@@ -1,19 +1,16 @@
-import { useState } from 'react';
-
-function PlayButton({ message, children, onPlay, onPause }) {
-  const [playing, setPlaying] = useState(false);
+// import { useState } from 'react';
+import '../css/PlayButton.css';
+function PlayButton({ children, onPlay, onPause }) {
+  let playing = false;
   function handleClick(e) {
-    // e.preventDefault();
-    if (playing) onPause();
-    else onPlay();
-    setPlaying(!playing);
+    e.stopPropagation();
+    playing === true ? onPlay() : onPause();
+    playing = !playing;
   }
   return (
-    <>
-      <button onClick={handleClick}>
-        {children}: {playing ? '▶️' : '⏸️'}
-      </button>
-    </>
+    <button onClick={handleClick}>
+      {children}:{playing ? '▶️' : '⏸️'}
+    </button>
   );
 }
 

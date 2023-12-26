@@ -8,7 +8,7 @@ export const videos = [
   },
   {
     id: 2,
-    title: 'Node JS',
+    title: 'React JS',
     views: '1M',
     time: '1 Day ago',
     verified: true,
