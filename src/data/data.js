@@ -1,4 +1,4 @@
-export const videos = [
+export const videosDb = [
   {
     id: 1,
     title: 'NodeJs',
@@ -15,7 +15,7 @@ export const videos = [
   },
   {
     id: 3,
-    title: 'GraphQL JS',
+    title: 'GraphQL',
     views: '585',
     time: '1 Month ago',
     verified: false,

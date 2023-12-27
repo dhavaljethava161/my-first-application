@@ -1,10 +1,10 @@
 import { useState } from 'react';
 function Counter({ children }) {
-  let [num, setNum] = useState(0);
+  const [num, setNum] = useState(0);
+
   function handleClick(e) {
     e.stopPropagation();
-    setNum(num + 1);
-    console.log('num===>', num);
+    setNum((num) => num + 1);
   }
   return (
     <>
