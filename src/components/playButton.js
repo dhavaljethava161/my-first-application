@@ -1,11 +1,11 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import '../css/PlayButton.css';
 function PlayButton({ children, onPlay, onPause }) {
-  let playing = false;
+  let [playing, setPlaying] = useState(false);
   function handleClick(e) {
     e.stopPropagation();
     playing === true ? onPlay() : onPause();
-    playing = !playing;
+    setPlaying(!playing);
   }
   return (
     <button onClick={handleClick}>
