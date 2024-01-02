@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/AddVideo.css';
+import useVideoDispatch from '../hooks/VideoDispatch';
 
 const intialVideoState = {
   time: '2 Month ago',
@@ -8,16 +9,29 @@ const intialVideoState = {
   title: '',
   views: '',
 };
-function AddVideo({ addingVideo }) {
+function AddVideo({ editableVideo }) {
   const [video, setVideos] = useState(intialVideoState);
+  const dispatch = useVideoDispatch();
+
   function handleSubmit(e) {
     e.preventDefault();
-    addingVideo(video);
+
+    if (editableVideo) {
+      dispatch({ type: 'UPDATE', payload: video });
+    } else {
+      dispatch({ type: 'ADD', payload: video });
+    }
     setVideos(intialVideoState);
   }
+
   function handleChange(e) {
     setVideos({ ...video, [e.target.name]: e.target.value });
   }
+
+  useEffect(() => {
+    if (editableVideo) setVideos(editableVideo);
+  }, [editableVideo]);
+
   return (
     <form>
       <input
@@ -34,22 +48,8 @@ function AddVideo({ addingVideo }) {
         placeholder='views'
         value={video.views}
       />
-      <button
-        onClick={handleSubmit}
-        // onClick={() => {
-        //   setVideos([
-        //     ...videos,
-        //     {
-        //       id: videosDb.length + 1,
-        //       title: 'GraphQL',
-        //       views: '585',
-        //       time: '1 Month ago',
-        //       verified: false,
-        //     },
-        //   ]);
-        // }
-      >
-        Add Video
+      <button onClick={handleSubmit}>
+        {editableVideo ? 'Edit' : 'Add'} Video
       </button>
     </form>
   );

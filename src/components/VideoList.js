@@ -1,8 +1,10 @@
 import React from 'react';
 import Video from './Video';
 import PlayButton from './PlayButton';
+import useVideo from '../hooks/Videos';
 
-function VideoList({ videos }) {
+function VideoList({ editVideo }) {
+  const videos = useVideo();
   return (
     <>
       {videos.map(({ title, channel, views, time, verified, id }) => (
@@ -13,7 +15,8 @@ function VideoList({ videos }) {
           views={views}
           time={time}
           verified={verified}
-          id={id}>
+          id={id}
+          editVideo={editVideo}>
           <PlayButton
             onPlay={() => console.log('Play', title)}
             onPause={() => console.log('Pause', title)}>

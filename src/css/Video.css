@@ -1,7 +1,20 @@
 .container {
-  width: 12em;
+  width: 15em;
   margin: 0 0.2em;
   float: left;
+  position: relative;
+}
+
+.container.darkMode{
+  color: white;
+}
+.container.lightMode{
+  color: black;
+}
+
+.dark {
+  background-color: gray;
+  color: white;
 }
 
 .pic img {
@@ -11,7 +24,6 @@
 .title {
   font-weight: bold;
   margin-bottom: 1em;
-  color: aliceblue;
 }
 
 .views span {
@@ -23,4 +35,14 @@
   font-size: small;
   color: #ccc;
   margin-bottom: 0.2em;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+}
+
+.edit {
+  position: absolute;
+  right: 4em;
 }
