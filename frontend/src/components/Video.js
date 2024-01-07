@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import '../css/Video.css';
 import ThemeContext from '../context/themeContext';
 import useVideoDispatch from '../hooks/VideoDispatch';
-function Video({
+const Video = memo(function Video({
   title,
   channel,
   views,
@@ -28,7 +28,8 @@ function Video({
         </button>
         <div className='pic'>
           <img
-            src={`https://picsum.photos/id/${id}/160/90`}
+            // src={`https://picsum.photos/id/${id}/160/90`}
+            src={`https://picsum.photos/seed/picsum/160/90`}
             alt='Katherine Johnson'
           />
         </div>
@@ -45,6 +46,6 @@ function Video({
       </div>
     </>
   );
-}
+});
 
 export default Video;

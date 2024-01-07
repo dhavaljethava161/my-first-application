@@ -1,7 +1,7 @@
 import './css/App.css';
 import './index.css';
-import { videosDb } from './data/data';
-import { useReducer, useState } from 'react';
+// import { videosDb } from './data/data';
+import { useCallback, useReducer, useState } from 'react';
 import AddVideo from './components/AddVideo';
 import VideoList from './components/VideoList';
 import ThemeContext from './context/themeContext';
@@ -17,6 +17,9 @@ function App() {
       case 'ADD':
         return [...videos, { ...action.payload, id: videos.length + 1 }];
 
+      case 'LOAD':
+        return action.payload;
+
       case 'DELETE':
         return videos.filter((video) => video.id !== action.payload);
 
@@ -31,29 +34,34 @@ function App() {
         return videos;
     }
   }
-  const [videos, dispatch] = useReducer(videoReducer, videosDb);
+  const [videos, dispatch] = useReducer(videoReducer, []);
 
-  function editVideo(id) {
-    setEditableVideo(videos.find((video) => video.id === id));
-  }
+  const editVideo = useCallback(
+    function editVideo(id) {
+      setEditableVideo(videos.find((video) => video.id === id));
+    },
+    [videos]
+  );
 
   return (
-    <ThemeContext.Provider value={mode}>
-      <VideosContext.Provider value={videos}>
-        <VideoDispatchContext.Provider value={dispatch}>
-          <div className={`App ${mode}`}>
-            <button
-              onClick={() =>
-                setMode(mode === 'darkMode' ? 'lightMode' : 'darkMode')
-              }>
-              Mode
-            </button>
-            <AddVideo editableVideo={editableVideo}></AddVideo>
-            <VideoList editVideo={editVideo}></VideoList>
-          </div>
-        </VideoDispatchContext.Provider>
-      </VideosContext.Provider>
-    </ThemeContext.Provider>
+    <>
+      <ThemeContext.Provider value={mode}>
+        <VideosContext.Provider value={videos}>
+          <VideoDispatchContext.Provider value={dispatch}>
+            <div className={`App ${mode}`}>
+              <button
+                onClick={() =>
+                  setMode(mode === 'darkMode' ? 'lightMode' : 'darkMode')
+                }>
+                Mode
+              </button>
+              <AddVideo editableVideo={editableVideo}></AddVideo>
+              <VideoList editVideo={editVideo}></VideoList>
+            </div>
+          </VideoDispatchContext.Provider>
+        </VideosContext.Provider>
+      </ThemeContext.Provider>
+    </>
   );
 }
 
